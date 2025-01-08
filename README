@@ -1,11 +1,120 @@
-You have successfully created an Atlassian Plugin!
+# Mojang Consent Plugin for Jira
 
-Here are the SDK commands you'll use immediately:
+A Jira plugin designed to collect user consent during data migration processes. This plugin provides functionality for collecting and tracking user consent through a simple and straightforward interface.
 
-* atlas-run   -- installs this plugin into the product and starts it on localhost
-* atlas-debug -- same as atlas-run, but allows a debugger to attach at port 5005
-* atlas-help  -- prints description for all commands in the SDK
+## Features
 
-Full documentation is always available at:
+- **User Consent Management**
+  - Simple consent form
+  - Consent status tracking
+  - Automatic user group management based on consent status
 
-https://developer.atlassian.com/display/DOCS/Introduction+to+the+Atlassian+Plugin+SDK
+- **REST API**
+  - Endpoints for consent management
+  - JSON-based communication
+  - Secure authentication
+  - Error handling and validation
+
+## Technical Requirements
+
+- Java 11 or higher
+- Jira 8.20.7 or higher
+- Maven 3.x
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd mojang-consent
+```
+
+2. Build the plugin:
+```bash
+atlas-mvn clean package
+```
+
+3. Install the plugin in Jira:
+   - Go to Jira Administration > Manage apps
+   - Click "Upload app"
+   - Select the generated JAR file from `target/mojang-consent-1.0.0-SNAPSHOT.jar`
+
+## Usage
+
+Users will be presented with a consent form when accessing the system. They need to review the migration information and provide their consent. Upon providing consent, their data will be marked for migration with preserved identity.
+
+The consent process is mandatory to ensure proper data migration.
+
+## Development
+
+### Project Structure
+
+```
+mojang-consent/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── valiantys/
+│   │   │           ├── model/
+│   │   │           ├── rest/
+│   │   │           ├── service/
+│   │   │           └── servlet/
+│   │   └── resources/
+│   └── test/
+├── pom.xml
+└── README.md
+```
+
+### Key Components
+
+- `MigrationConsentServlet`: Handles the consent form display and submission
+- `ConsentService`: Manages consent data storage and retrieval
+- `ConsentStatus`: Model for tracking user consent status
+
+### Building
+
+```bash
+# Run tests
+atlas-mvn test
+
+# Create plugin JAR
+atlas-mvn package
+
+# Run Jira with the plugin
+atlas-run
+```
+
+### Development Commands
+
+- `atlas-run`: Starts Jira with the plugin installed
+- `atlas-debug`: Starts Jira with remote debugging enabled
+- `atlas-package`: Packages the plugin without running tests
+- `atlas-help`: Shows all available commands
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support, please contact:
+- Website: [http://www.valiantys.com](http://www.valiantys.com)
+
+## Authors
+
+- Valiantys Team
+- Website: [http://www.valiantys.com](http://www.valiantys.com)
+
+## Acknowledgments
+
+- Atlassian for the Jira platform and SDK
+- The open-source community for various tools and libraries used in this project
