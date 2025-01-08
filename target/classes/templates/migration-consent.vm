@@ -27,6 +27,13 @@
             font-weight: 500;
             margin: 0 0 16px 0;
         }
+
+        .consent-explanation {
+            color: #42526E;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 16px 0;
+        }
         
         .consent-options {
             margin: 20px 0;
@@ -70,6 +77,9 @@
     <div class="consent-container">
         <div class="consent-header">
             <h1 class="consent-title">Data Migration Consent</h1>
+            <p class="consent-explanation">
+                I consent to transfer my current Mojang Jira account and personal data associated with existing bugs to the new bug filing system, owned by Atlassian, and this associated personal data will transfer from Mojang to Atlassian (name, email, information in the bugs). If I consent to the transfer, Atlassian will process my data in accordance with the Atlassian <a href="https://www.atlassian.com/legal/privacy-policy">privacy policy</a>. If I wish to revoke consent in the future, I will need to contact Atlassian to exercise my data subject rights.
+            </p>
             <p>Please select your preferred migration option:</p>
         </div>
         
@@ -88,7 +98,7 @@
                 <div class="consent-option">
                     <label>
                         <input type="radio" name="consentOption" value="bugs_only" required>
-                        Yes, I consent to the transfer of only my bugs. My account will not be transferred.
+                        Yes, I consent to the transfer of only my bugs and associated personal data. My account will not be transferred.
                     </label>
                     <div class="consent-description">
                         Only your bugs will be transferred, but your account information will not be migrated.
@@ -98,7 +108,7 @@
                 <div class="consent-option">
                     <label>
                         <input type="radio" name="consentOption" value="none" required>
-                        No, I do not consent to any transfer.
+                        No, I do not consent to any transfer of personal information. My bugs will still transfer, but personal data will be removed.
                     </label>
                     <div class="consent-description">
                         Neither your account nor your bugs will be transferred.
