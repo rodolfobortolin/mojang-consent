@@ -51,38 +51,14 @@ public class ConsentService implements ConsentServiceInterface {
             // Store the consent status in plugin settings
             pluginSettings.put("migration.consent." + username, status.toString());
 
-            // If user consented, add them to the consent group
-            if (consent) {
-                handleConsentGroupMembership(username);
-            }
+            
         } catch (Exception e) {
             log.error("Error saving consent for user: {}", username, e);
             throw new RuntimeException("Failed to save consent", e);
         }
     }
 
-    // Helper method to manage consent group membership
-    private void handleConsentGroupMembership(String username) {
-        try {
-            ApplicationUser user = userManager.getUserByName(username);
-            if (user == null) {
-                log.error("User not found: {}", username);
-                return;
-            }
-
-            // Get or create the consent group
-            Group consentGroup = groupManager.getGroup("consent-ok");
-            if (consentGroup == null) {
-                consentGroup = groupManager.createGroup("consent-ok");
-            }
-            
-            // Add user to the consent group
-            groupManager.addUserToGroup(user, consentGroup);
-        } catch (Exception e) {
-            log.error("Error adding user {} to consent-ok group", username, e);
-            throw new RuntimeException("Failed to process consent group membership", e);
-        }
-    }
+    
 
     @Override
     public ConsentStatus getConsentStatus(@NotNull String username) {

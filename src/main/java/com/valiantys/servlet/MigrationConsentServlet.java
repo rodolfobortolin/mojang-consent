@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import com.atlassian.crowd.embedded.api.Group;
 import com.atlassian.jira.bc.user.UserService;
-import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.security.groups.GroupManager;
 import com.atlassian.jira.config.properties.ApplicationProperties;
 import com.atlassian.jira.security.JiraAuthenticationContext;
