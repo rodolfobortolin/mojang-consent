@@ -44,6 +44,8 @@ public class MigrationConsentServlet extends HttpServlet {
 
     // Example path to your Velocity template if needed
     private static final String TEMPLATE_PATH = "/templates/migration-consent.vm";
+    private static final String SUCCESS_TEMPLATE_PATH = "/templates/consent-success.vm";
+
 
     public MigrationConsentServlet(
             @ComponentImport ConsentServiceInterface consentService,
@@ -139,34 +141,43 @@ public class MigrationConsentServlet extends HttpServlet {
         }
 
         try {
-            // Grab the "consent" parameter from the form
             String consentParam = req.getParameter("consent");
-            // We interpret "true" or "on" as user consent = true
             boolean consent = consentParam != null 
                               && (consentParam.equalsIgnoreCase("true") 
                                   || consentParam.equalsIgnoreCase("on"));
 
-            // Save the consent status (true/false)
             consentService.saveConsent(user.getUsername(), consent);
 
-            //Build JSON response
-            JSONObject json = new JSONObject();
-            json.put("status", "success");
-            json.put("message", consent
-                ? "Consent provided successfully. User added to group."
-                : "Consent declined."
-            );
-
-            sendJsonResponse(resp, HttpServletResponse.SC_OK, json);
+            // Se o cabeçalho Accept indica que o cliente espera JSON, retorne JSON
+            String acceptHeader = req.getHeader("Accept");
+            if (acceptHeader != null && acceptHeader.contains("application/json")) {
+                JSONObject json = new JSONObject();
+                json.put("status", "success");
+                json.put("message", consent
+                    ? "Consent provided successfully. User added to group."
+                    : "Consent declined.");
+                sendJsonResponse(resp, HttpServletResponse.SC_OK, json);
+            } else {
+                // Caso contrário, renderize a página de sucesso
+                Map<String, Object> context = createTemplateContext(user);
+                resp.setContentType("text/html;charset=UTF-8");
+                templateRenderer.render(SUCCESS_TEMPLATE_PATH, context, resp.getWriter());
+            }
 
         } catch (Exception e) {
             log.error("Error processing consent for user: {}", user.getUsername(), e);
-
-            JSONObject errorJson = new JSONObject();
-            errorJson.put("status", "error");
-            errorJson.put("message", "Failed to process consent");
-
-            sendJsonResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, errorJson);
+            
+            // Se o cliente espera JSON, retorne erro em JSON
+            String acceptHeader = req.getHeader("Accept");
+            if (acceptHeader != null && acceptHeader.contains("application/json")) {
+                JSONObject errorJson = new JSONObject();
+                errorJson.put("status", "error");
+                errorJson.put("message", "Failed to process consent");
+                sendJsonResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, errorJson);
+            } else {
+                // Caso contrário, mostre erro na página
+                handleRenderError(resp);
+            }
         }
     }
 

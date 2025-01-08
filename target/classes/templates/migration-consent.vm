@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="decorator" content="atl.general">
     <title>Data Migration Consent</title>
-    <!-- Carregar recursos Atlassian, se necessário -->
+
     $webResourceManager.requireResource("com.example.jira.plugins.migration-consent:migration-consent-resources")
+    
     <style>
         .consent-container {
             max-width: 800px;
