@@ -1,0 +1,70 @@
+<atlassian-plugin key="com.valiantys.mojang-consent" name="Mojang Consent Plugin" plugins-version="2">
+	<plugin-info>
+		<description>A plugin to manage user consent for data migration in Jira</description>
+		<version>1.0.0</version>
+		<vendor name="Valiantys" url="http://www.valiantys.com" />
+		<param name="plugin-icon">images/pluginIcon.png</param>
+		<param name="plugin-logo">images/pluginLogo.png</param>
+	</plugin-info>
+
+	<!-- Add our i18n resource -->
+	<resource type="i18n" name="i18n" location="mojang-consent" />
+
+	<!-- Add our web resources -->
+	<web-resource key="mojang-consent-resources" name="Mojang Consent Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>com.atlassian.plugins.jquery:jquery</dependency>
+
+        <resource type="download" name="mojang-consent.css" location="/css/mojang-consent.css"/>
+        <resource type="download" name="mojang-consent.js" location="/js/mojang-consent.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <!-- Add a context-provider to ensure required parameters are available -->
+        <context-provider>
+            <resource type="velocity" name="mojang-consent-context" 
+                      location="templates/mojang-consent-context.vm"/>
+        </context-provider>
+
+        <context>mojang-consent</context>
+    </web-resource>
+
+    
+	<servlet name="Migration Consent Servlet" key="migration-consent-servlet"
+             class="com.valiantys.servlet.MigrationConsentServlet">
+        <url-pattern>/migration-consent</url-pattern>
+    </servlet>
+
+	<!-- Add REST resource -->
+	<rest key="migration-consent-rest" path="/migration-consent" version="1.0">
+		<description>Provides REST endpoints for migration consent</description>
+	</rest>
+
+	<component-import key="applicationProperties"
+		interface="com.atlassian.sal.api.ApplicationProperties" />
+	<component-import key="templateRenderer"
+		interface="com.atlassian.templaterenderer.TemplateRenderer" />
+	<component-import key="loginUriProvider"
+		interface="com.atlassian.sal.api.auth.LoginUriProvider" />
+	<component-import key="pluginSettingsFactory"
+		interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" />
+
+	<webwork1 key="migration-consent-actions" name="Migration Consent Actions"
+		class="java.lang.Object">
+		<actions>
+			<action name="MigrationConsentAdmin"
+				class="com.valiantys.admin.MigrationConsentAdminAction">
+				<view name="input">/templates/migration-consent-admin.vm</view>
+				<view name="success">/templates/migration-consent-admin.vm</view>
+				<view name="error">/templates/migration-consent-admin.vm</view>
+			</action>
+		</actions>
+	</webwork1>
+	
+	<component key="consentService" class="com.valiantys.service.ConsentService">
+		<interface>com.valiantys.service.ConsentServiceInterface</interface>
+	</component>
+	<component key="emailService" class="com.valiantys.service.EmailService">
+		<interface>com.valiantys.service.EmailServiceInterface</interface>
+	</component>
+
+</atlassian-plugin>
