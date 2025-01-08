@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="decorator" content="atl.general">
+    <title>Data Migration Consent</title>
+    <!-- Carregar recursos Atlassian, se necessário -->
+    $webResourceManager.requireResource("com.example.jira.plugins.migration-consent:migration-consent-resources")
+    <style>
+        .consent-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 32px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(9, 30, 66, 0.13);
+        }
+        .consent-header {
+            border-bottom: 2px solid #F4F5F7;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+        .consent-title {
+            color: #172B4D;
+            font-size: 24px;
+            font-weight: 500;
+            margin: 0 0 16px 0;
+        }
+        .consent-subtitle {
+            color: #42526E;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .consent-content {
+            margin-bottom: 32px;
+        }
+        .consent-section {
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #F4F5F7;
+            border-radius: 4px;
+        }
+        .consent-section h3 {
+            color: #172B4D;
+            font-size: 16px;
+            margin: 0 0 8px 0;
+        }
+        .consent-section p {
+            color: #42526E;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .consent-checkbox {
+            margin: 24px 0;
+            padding: 16px;
+            border: 1px solid #DFE1E6;
+            border-radius: 4px;
+            background: #FAFBFC;
+        }
+        .consent-checkbox label {
+            display: flex;
+            align-items: flex-start;
+            color: #172B4D;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .consent-checkbox input[type="checkbox"] {
+            margin: 3px 12px 0 0;
+        }
+        .consent-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        .consent-actions button {
+            min-width: 120px;
+        }
+        .info-icon {
+            color: #0052CC;
+            margin-right: 8px;
+        }
+        .warning-banner {
+            background: #FFFAE6;
+            border: 1px solid #FEC57B;
+            color: #172B4D;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="consent-container">
+    <div class="consent-header">
+        <h1 class="consent-title">Data Migration Consent</h1>
+        <p class="consent-subtitle">Please review the information below regarding the migration of your data to our new Jira instance.</p>
+    </div>
+
+    <div class="warning-banner">
+        <span class="aui-icon aui-icon-small aui-iconfont-info info-icon"></span>
+        <span>Choose how your content will be migrated - with your identity or anonymously</span>
+    </div>
+
+    <div class="consent-content">
+        <div class="consent-section">
+            <h3>What's Being Migrated?</h3>
+            <p>The following data will be migrated:</p>
+            <div style="margin: 16px 0;">
+                <h4 style="color: #172B4D; font-size: 14px; margin-bottom: 8px;">With Your Consent:</h4>
+                <ul style="margin-left: 24px; color: #42526E;">
+                    <li>Issues linked to your identity as creator/reporter</li>
+                    <li>Comments with your authorship</li>
+                    <li>Mentions and participations with your username</li>
+                    <li>User profile and permissions</li>
+                </ul>
+            </div>
+            <div style="margin: 16px 0;">
+                <h4 style="color: #172B4D; font-size: 14px; margin-bottom: 8px;">Without Consent (as Anonymous):</h4>
+                <ul style="margin-left: 24px; color: #42526E;">
+                    <li>Issue content will be migrated but linked to an anonymous user</li>
+                    <li>Comments will be preserved but marked as anonymous</li>
+                    <li>Your mentions will be anonymized</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="consent-section">
+            <h3>Why We Need Your Consent</h3>
+            <p>To ensure transparency and comply with data protection regulations, we require your explicit consent before migrating your personal data to the new instance.</p>
+        </div>
+
+        <div class="consent-section">
+            <h3>Data Security</h3>
+            <p>The migration process follows industry-standard security protocols. Your data will be encrypted during transfer and stored securely in the new system.</p>
+        </div>
+    </div>
+
+    <!-- Remove 'action' to prevent default browser submission -->
+    <form class="aui" id="consent-form" method="POST">
+        <div class="consent-checkbox">
+            <label for="consent-checkbox">
+                <input class="checkbox" type="checkbox" name="consent" id="consent-checkbox" value="true">
+                <span>I understand and consent to having my user data migrated to the new Jira instance. I acknowledge that this action is necessary to maintain my access and settings.</span>
+            </label>
+        </div>
+        
+        <div class="consent-actions">
+            <button class="aui-button aui-button-subtle" type="button" onclick="window.history.back()">Cancel</button>
+            <button class="aui-button aui-button-primary" type="submit" id="submit-consent">Provide Consent</button>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>

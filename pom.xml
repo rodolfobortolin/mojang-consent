@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.valiantys</groupId>
+	<artifactId>mojang-consent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<organization>
+		<name>Valiantys</name>
+		<url>http://www.valiantys.com</url>
+	</organization>
+	<name>Mojang Consent Plugin</name>
+	<packaging>jar</packaging>
+	<description>A Jira plugin for managing user consent during data migration.
+		This plugin provides a comprehensive system for collecting, managing,
+		and tracking user consent for data migration processes. It includes
+		features for sending consent request emails, displaying consent forms,
+		and administrative tools for managing the consent collection process.</description>
+	<issueManagement>
+		<system>JIRA</system>
+	</issueManagement>
+	<repositories>
+		<repository>
+			<id>atlassian-public</id>
+			<url>https://packages.atlassian.com/maven/repository/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>atlassian-public</id>
+			<url>https://packages.atlassian.com/maven/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<properties>
+		<!-- Updated to a more recent LTS version of JIRA -->
+		<jira.version>8.20.7</jira.version>
+		<!-- Updated AMPS version to match the one from the reference POM -->
+		<amps.version>8.1.2</amps.version>
+		<!-- Updated plugin testrunner version -->
+		<plugin.testrunner.version>2.0.2</plugin.testrunner.version>
+		<!-- Updated spring scanner version -->
+		<atlassian.spring.scanner.version>2.1.7</atlassian.spring.scanner.version>
+		<!-- Added additional properties for better Java compatibility -->
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
+		<!-- Updated TestKit version to match JIRA version -->
+		<testkit.version>8.20.7</testkit.version>
+	</properties>
+	<dependencies>
+		<!-- Core Atlassian dependencies -->
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>jira-api</artifactId>
+			<version>${jira.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Jakarta EE (modern Java EE) dependencies -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>5.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<version>2.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>jira-core</artifactId>
+			<version>${jira.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.plugin</groupId>
+			<artifactId>atlassian-spring-scanner-annotation</artifactId>
+			<version>${atlassian.spring.scanner.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Jakarta Transaction API -->
+		<dependency>
+			<groupId>jakarta.transaction</groupId>
+			<artifactId>jakarta.transaction-api</artifactId>
+			<version>2.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- JTA (Java Transaction API) -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>javax.transaction-api</artifactId>
+			<version>1.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.plugin</groupId>
+			<artifactId>atlassian-spring-scanner-runtime</artifactId>
+			<version>${atlassian.spring.scanner.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160810</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.templaterenderer</groupId>
+			<artifactId>atlassian-template-renderer-api</artifactId>
+			<version>4.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- WIRED TEST RUNNER DEPENDENCIES -->
+		<dependency>
+			<groupId>com.atlassian.plugins</groupId>
+			<artifactId>atlassian-plugins-osgi-testrunner</artifactId>
+			<version>${plugin.testrunner.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>1.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

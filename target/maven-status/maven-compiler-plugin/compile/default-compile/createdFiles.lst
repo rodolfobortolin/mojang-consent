@@ -1,0 +1,7 @@
+com\valiantys\service\EmailService.class
+com\valiantys\admin\MigrationConsentAdminAction.class
+com\valiantys\rest\ConsentRequest.class
+com\valiantys\service\ConsentService.class
+com\valiantys\model\ConsentStatus.class
+com\valiantys\rest\MigrationConsentResource.class
+com\valiantys\servlet\MigrationConsentServlet.class
