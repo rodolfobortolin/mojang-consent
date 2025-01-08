@@ -8,18 +8,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.atlassian.crowd.embedded.api.Group;
-import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.config.properties.ApplicationProperties;
 import com.atlassian.jira.security.JiraAuthenticationContext;
-import com.atlassian.jira.security.groups.GroupManager;
 import com.atlassian.jira.user.ApplicationUser;
-import com.atlassian.jira.user.util.UserUtil;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.templaterenderer.TemplateRenderer;
@@ -38,8 +35,6 @@ public class MigrationConsentServlet extends HttpServlet {
     private final LoginUriProvider loginUriProvider;
     private final JiraAuthenticationContext authContext;
     private final ApplicationProperties applicationProperties;
-    private final UserUtil userUtil;
-    private final GroupManager groupManager;
 
     private static final String TEMPLATE_PATH = "/templates/migration-consent.vm";
     private static final String SUCCESS_TEMPLATE_PATH = "/templates/consent-success.vm";
@@ -64,8 +59,6 @@ public class MigrationConsentServlet extends HttpServlet {
         this.loginUriProvider = loginUriProvider;
         this.authContext = authContext;
         this.applicationProperties = applicationProperties;
-        this.userUtil = ComponentAccessor.getUserUtil();
-        this.groupManager = ComponentAccessor.getGroupManager();
     }
 
     /**
