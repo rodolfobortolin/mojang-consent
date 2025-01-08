@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="decorator" content="atl.general">
+    <title>Consent Provided Successfully</title>
+    $webResourceManager.requireResource("com.example.jira.plugins.migration-consent:migration-consent-resources")
+    
+    <style>
+        .success-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 32px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(9, 30, 66, 0.13);
+            text-align: center;
+        }
+        
+        .success-icon {
+            color: #36B37E;
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+        
+        .success-title {
+            color: #172B4D;
+            font-size: 24px;
+            font-weight: 500;
+            margin: 0 0 16px 0;
+        }
+        
+        .success-message {
+            color: #42526E;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+        
+        .details-section {
+            background: #F4F5F7;
+            border-radius: 4px;
+            padding: 24px;
+            margin: 32px 0;
+            text-align: left;
+        }
+        
+        .details-section h3 {
+            color: #172B4D;
+            font-size: 16px;
+            margin: 0 0 16px 0;
+        }
+        
+        .details-section ul {
+            color: #42526E;
+            margin: 0;
+            padding-left: 24px;
+        }
+        
+        .details-section li {
+            margin-bottom: 8px;
+        }
+        
+        .action-buttons {
+            margin-top: 32px;
+        }
+        
+        .action-buttons button {
+            margin: 0 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">
+            <span class="aui-icon aui-icon-large aui-iconfont-success">Success</span>
+        </div>
+        
+        <h1 class="success-title">Thank You for Your Consent</h1>
+        <p class="success-message">Your data migration preferences have been successfully recorded.</p>
+        
+        <div class="details-section">
+            <h3>What Happens Next?</h3>
+            <ul>
+                <li>Your data will be migrated with your identity preserved</li>
+                <li>You'll receive an email confirmation of your consent</li>
+                <li>You'll be notified when the migration process begins</li>
+                <li>Your access to the system will continue uninterrupted</li>
+            </ul>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="aui-button aui-button-primary" onclick="window.location.href='$baseUrl/secure/Dashboard.jspa'">
+                Return to Dashboard
+            </button>
+        </div>
+    </div>
+</body>
+</html>

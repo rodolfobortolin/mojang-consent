@@ -27,21 +27,7 @@
 
         <context>mojang-consent</context>
     </web-resource>
-    
-    <web-section key="mojang-consent-section" location="admin_plugins_menu" weight="1000">
-        <label key="migration.consent.section.label">Migration Consent</label>
-        <!-- Provide a default parameter to prevent null values -->
-        <param name="section-name">migration-consent</param>
-    </web-section>
-    
-    <web-item key="mojang-consent-admin-link" section="admin_plugins_menu/mojang-consent-section" weight="10">
-        <label key="migration.consent.admin.label">Manage Migration Consent</label>
-        <!-- Use a properly formatted URL with fallback -->
-        <link><![CDATA[${baseurl}/secure/MigrationConsentAdmin.jspa]]></link>
-        <!-- Add parameters that might be needed by the web fragment -->
-        <param name="link-name">migration-consent-admin</param>
-    </web-item>
-    
+
     
 	<servlet name="Migration Consent Servlet" key="migration-consent-servlet"
              class="com.valiantys.servlet.MigrationConsentServlet">
@@ -53,17 +39,6 @@
 		<description>Provides REST endpoints for migration consent</description>
 	</rest>
 
-	<!-- Add admin page -->
-	<web-section key="mojang-consent-admin-section"
-		location="admin_plugins_menu" weight="95">
-		<label key="Mojang Consent" />
-	</web-section>
-
-	<!-- Add required system components -->
-	<component key="migrationConsentAdminAction"
-		class="com.valiantys.admin.MigrationConsentAdminAction">
-		<description>Handles migration consent administration</description>
-	</component>
 	<component-import key="applicationProperties"
 		interface="com.atlassian.sal.api.ApplicationProperties" />
 	<component-import key="templateRenderer"
