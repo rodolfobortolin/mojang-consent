@@ -96,42 +96,49 @@ public class MigrationConsentServlet extends HttpServlet {
                 throw new IllegalArgumentException("Consent option is required");
             }
 
-            // Remove user from all migration groups first
-            removeFromMigrationGroups(user);
+            try {
+                removeFromMigrationGroups(user);
 
-            // Process the consent based on the option selected
-            switch (consentOption) {
-                case "full":
-                    processFullConsent(user);
-                    break;
-                case "bugs_only":
-                    processBugsOnlyConsent(user);
-                    break;
-                case "none":
-                    processNoConsent(user);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid consent option: " + consentOption);
+                switch (consentOption) {
+                    case "full":
+                        processFullConsent(user);
+                        break;
+                    case "bugs_only":
+                        processBugsOnlyConsent(user);
+                        break;
+                    case "none":
+                        processNoConsent(user);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid consent option: " + consentOption);
+                }
+            } catch (Exception e) {
+                log.error("Error processing group membership for user: {}", user.getUsername(), e);
             }
 
-            // Save the consent in the service
-            consentService.saveConsent(user.getUsername(), !consentOption.equals("none"));
+            try {
+                consentService.saveDetailedConsent(user.getUsername(), consentOption);
+            } catch (Exception e) {
+                log.error("Error saving consent and creating issue for user: {}", user.getUsername(), e);
+            }
 
-            // Send confirmation email
-            emailService.sendConsentConfirmationEmail(user);
+            try {
+                emailService.sendConsentConfirmationEmail(user);
+            } catch (Exception e) {
+                log.error("Error sending confirmation email to user: {}", user.getUsername(), e);
+            }
 
-            // Render success page
             Map<String, Object> successContext = new HashMap<>();
             successContext.put("consentOption", consentOption);
             successContext.put("date", new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date()));
             successContext.put("baseUrl", applicationProperties.getString("jira.baseurl"));
-            
+
             resp.setContentType("text/html;charset=UTF-8");
             templateRenderer.render(SUCCESS_TEMPLATE_PATH, successContext, resp.getWriter());
 
         } catch (Exception e) {
-            log.error("Error processing consent for user: {}", user.getUsername(), e);
-            handleError(req, resp, e.getMessage());
+            log.error("Critical error processing consent for user: {}", user.getUsername(), e);
+            handleError(req, resp, "An error occurred while processing your consent. Please contact support if the problem persists.");
         }
     }
 
