@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="decorator" content="atl.general">
+    <title>Error - Migration Consent</title>
+    $webResourceManager.requireResource("com.valiantys.mojang-consent:mojang-consent-resources")
+    <style>
+        .error-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 32px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(9, 30, 66, 0.13);
+        }
+        
+        .error-icon {
+            color: #DE350B;
+            font-size: 24px;
+            margin-right: 12px;
+        }
+        
+        .error-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #F4F5F7;
+        }
+        
+        .error-title {
+            color: #172B4D;
+            font-size: 24px;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        .error-message {
+            color: #42526E;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        
+        .error-actions {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #F4F5F7;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-header">
+            <span class="aui-icon aui-icon-large aui-iconfont-error error-icon"></span>
+            <h1 class="error-title">Something went wrong</h1>
+        </div>
+        
+        <div class="error-message">
+            #if($errorMessage)
+                $errorMessage
+            #else
+                An unexpected error occurred while processing your request. Please try again later.
+            #end
+        </div>
+        
+        <div class="error-message">
+            <p>Here are some things you can try:</p>
+            <ul>
+                <li>Refresh the page and try again</li>
+                <li>Make sure you're logged in to Jira</li>
+                <li>Contact your system administrator if the problem persists</li>
+            </ul>
+        </div>
+        
+        <div class="error-actions">
+            <button class="aui-button aui-button-primary" onclick="window.location.href='$baseUrl/plugins/servlet/migration-consent'">
+                Return to Consent Page
+            </button>
+            <button class="aui-button" onclick="window.history.back()">
+                Go Back
+            </button>
+        </div>
+    </div>
+    
+    #if($devMode)
+    <div class="error-container">
+        <h3>Technical Details</h3>
+        <pre style="background: #F4F5F7; padding: 16px; border-radius: 4px; overflow-x: auto;">
+            #if($stackTrace)
+                $stackTrace
+            #end
+        </pre>
+    </div>
+    #end
+</body>
+</html>

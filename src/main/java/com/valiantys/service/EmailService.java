@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 @Component
 public class EmailService implements EmailServiceInterface {
     private static final Logger log = LoggerFactory.getLogger(EmailService.class);
-    private static final String EMAIL_FROM = "jira@example.com";
+    private static final String EMAIL_FROM = "bugs@mojang.com";
     
     /**
      * Sends the initial consent request email to a user.
