@@ -93,8 +93,7 @@ public class ConsentService implements ConsentServiceInterface {
                 .setIssueTypeId(issueTypeId)
                 .setSummary(summary)
                 .setDescription(description)
-                .setReporterId(reporter.getUsername()) 
-                .setAssigneeId(reporter.getUsername()); 
+                .setReporterId(username); 
 
             IssueService.CreateValidationResult validationResult = 
                 issueService.validateCreate(reporter, issueInputParameters);
