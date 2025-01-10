@@ -48,6 +48,9 @@ public class MigrationConsentServlet extends HttpServlet {
     private static final String FULL_CONSENT_GROUP = "migration-full-consent";
     private static final String BUGS_ONLY_GROUP = "migration-bugs-only";
     private static final String NO_CONSENT_GROUP = "migration-no-consent";
+    
+    private static final boolean ENABLE_EMAIL_NOTIFICATIONS = false; // Set to true to enable emails
+
 
     public MigrationConsentServlet(
             @ComponentImport ConsentServiceInterface consentService,
@@ -122,10 +125,25 @@ public class MigrationConsentServlet extends HttpServlet {
                 log.error("Error saving consent and creating issue for user: {}", user.getUsername(), e);
             }
 
-            try {
-                emailService.sendConsentConfirmationEmail(user);
-            } catch (Exception e) {
-                log.error("Error sending confirmation email to user: {}", user.getUsername(), e);
+            
+            if (ENABLE_EMAIL_NOTIFICATIONS) {
+	            try {
+	                switch (consentOption) {
+	                    case "full":
+	                        emailService.sendFullConsentEmail(user);
+	                        break;
+	                    case "bugs_only":
+	                        emailService.sendBugsOnlyConsentEmail(user);
+	                        break;
+	                    case "none":
+	                        emailService.sendNoConsentEmail(user);
+	                        break;
+	                }
+	            } catch (Exception e) {
+	                log.error("Error sending confirmation email to user: {}", user.getUsername(), e);
+	            }
+            } else {
+                log.info("Email notifications are disabled. Skipping email for user: {}", user.getUsername());
             }
 
             Map<String, Object> successContext = new HashMap<>();

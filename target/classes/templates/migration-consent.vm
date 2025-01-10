@@ -90,9 +90,6 @@
                         <input type="radio" name="consentOption" value="full" required>
                         Yes, I consent to the transfer of both my account and my bugs.
                     </label>
-                    <div class="consent-description">
-                        Your account and all associated bugs will be transferred with your identity preserved.
-                    </div>
                 </div>
                 
                 <div class="consent-option">
@@ -100,9 +97,6 @@
                         <input type="radio" name="consentOption" value="bugs_only" required>
                         Yes, I consent to the transfer of only my bugs and associated personal data. My account will not be transferred.
                     </label>
-                    <div class="consent-description">
-                        Only your bugs will be transferred, but your account information will not be migrated.
-                    </div>
                 </div>
                 
                 <div class="consent-option">
@@ -110,9 +104,6 @@
                         <input type="radio" name="consentOption" value="none" required>
                         No, I do not consent to any transfer of personal information. My bugs will still transfer, but personal data will be removed.
                     </label>
-                    <div class="consent-description">
-                        Neither your account nor your bugs will be transferred.
-                    </div>
                 </div>
             </div>
             

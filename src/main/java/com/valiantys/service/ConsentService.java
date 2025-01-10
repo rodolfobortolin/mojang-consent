@@ -76,10 +76,10 @@ public class ConsentService implements ConsentServiceInterface {
                 throw new RuntimeException("User not found: " + username);
             }
 
-            ApplicationUser reporter = userManager.getUserByName("rodolfobortolin");
+            ApplicationUser reporter = userManager.getUserByName("mojangadmin");
             if (reporter == null) {
-                log.error("Reporter user 'rodolfobortolin' not found");
-                throw new RuntimeException("Reporter user 'rodolfobortolin' not found");
+                log.error("Reporter user 'mojangadmin' not found");
+                throw new RuntimeException("Reporter user 'mojangadmin' not found");
             }
 
             String summary = getConsentSummary(username, consentType);
