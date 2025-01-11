@@ -1,4 +1,0 @@
-com\valiantys\service\EmailService.class
-com\valiantys\service\ConsentService.class
-com\valiantys\model\ConsentStatus.class
-com\valiantys\servlet\MigrationConsentServlet.class
