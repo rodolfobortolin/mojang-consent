@@ -66,6 +66,10 @@ mojang-consent/
 └── README.md
 ```
 
+## Data Flow 
+
+![Data Flow](Data%20Flow.png)
+
 ### Key Components
 
 - `MigrationConsentServlet`: Handles the consent form display and submission
